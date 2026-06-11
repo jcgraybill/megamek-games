@@ -1,6 +1,8 @@
 ---
 layout: page
+version: milestone
 ---
+{% assign version = site.data.versions[page.version] %}
 # Installation
 
 **Notice: An easier method is now available through a [Dockerized]({{ 'docker.html' | relative_url }}) version of MegaMek!
@@ -51,7 +53,7 @@ user.
 ## Server Requirements (recommended for most)
 
 * Ubuntu 24.04 LTS
-* OpenJDK 17 LTS
+* OpenJDK {{ version.jdk }} LTS
 * 1 vCPU
 * 1GB RAM
 * 25G HDD
@@ -85,10 +87,10 @@ For OpenJDK, it's another quick command:
 
 ```bash
 # step 2
-sudo apt install openjdk-17-jdk-headless
+sudo apt install openjdk-{{ version.jdk }}-jdk-headless
 ```
 
-This will install OpenJDK 11 for headless systems. This basically means for
+This will install OpenJDK {{ version.jdk }} for headless systems. This basically means for
 systems without a monitor attached.
 
 If using the UFW firewall as mentioned in the above tutorial, it is important
@@ -108,7 +110,7 @@ website. Navigate there in your favorite browser and copy the Linux URL from
 the downloads page. You can choose either the MekHQ package OR the MegaMek
 one. Both will have the same files for a dedicated server. We recommend
 using the MekHQ package to avoid seeing the `client/server hash mismatch`
-error in the logs. So long as the VERSION (ie: 0.50.06) matches on both, there
+error in the logs. So long as the VERSION (ie: {{ version.version }}) matches on both, there
 should be no issues.
 
 To get it onto the server, we're going to use `wget` to have it download the
@@ -131,11 +133,11 @@ ls -lha
 >
 > This will return a listing of files and folders in the current directory.
 
-For MekHQ 0.50.06:
+For MekHQ {{ version.version }}:
 
 ```bash
 # step 5
-tar -zxf mekhq-0.50.06.tar.gz
+tar -zxf mekhq-{{ version.version }}.tar.gz
 ```
 
 To better understand what's going on, we are telling the `tar` command to
@@ -161,11 +163,11 @@ can stop the running instance, remove the old link, make a new one, and start
 it up again without having to run any privileged commands or tell the system
 something has changed. It'll `just work`.
 
-Again, using MekHQ 0.50.06:
+Again, using MekHQ {{ version.version }}:
 
 ```bash
 # step 6
-ln -s mekhq-0.50.06 stable
+ln -s mekhq-{{ version.version }} stable
 ```
 
 This will create a link from the extracted location to a folder named `stable`

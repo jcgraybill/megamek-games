@@ -1,5 +1,6 @@
 ---
 layout: page
+version: milestone
 ---
 # Installation
 
@@ -129,10 +130,10 @@ these images public. You can pick a version, `latest` (development), or `milesto
 
 ```bash
 # step 4
-docker pull tapenvyus/megamek:milestone
+docker pull tapenvyus/megamek:{{ page.version }}
 ```
 
-This will pull the latest milestone version. Replace the text after the `:` with either the version number, latest,
+This will pull the latest {{ page.version }} version. Replace the text after the `:` with either the version number, latest,
 or milestone.
 
 ## Creating and Running the Image
@@ -140,7 +141,7 @@ or milestone.
 Once the version is pulled, to run the image,
 
 ```bash
-docker run -d --restart unless-stopped -p 2346:2346 --name megamek tapenvyus/megamek:milestone
+docker run -d --restart unless-stopped -p 2346:2346 --name megamek tapenvyus/megamek:{{ page.version }}
 ```
 
 This will take the newly downloaded image, start it up, set it to restart automatically upon system reboot, ensure
@@ -156,10 +157,10 @@ remove the old container to be sure we have a clean slate, re-create and run the
 then clean up old data from the system.
 
 ```bash
-docker pull tapenvyus/megamek:milestone
+docker pull tapenvyus/megamek:{{ page.version }}
 docker stop megamek
 docker container rm megamek
-docker run -d --restart unless-stopped -p 2346:2346 --name megamek tapenvyus/megamek:milestone
+docker run -d --restart unless-stopped -p 2346:2346 --name megamek tapenvyus/megamek:{{ page.version }}
 docker system prune --volumes -f
 ```
 
@@ -171,19 +172,19 @@ commands (initial start and updating images).
 First, create a folder to store your custom data then change
 
 ```bash
-docker run -d --restart unless-stopped -p 2346:2346 --name megamek tapenvyus/megamek:milestone
+docker run -d --restart unless-stopped -p 2346:2346 --name megamek tapenvyus/megamek:{{ page.version }}
 ```
 
 to be
 
 ```bash
-docker run -d --restart unless-stopped -p 2346:2346 -v <path to userdata folder>:/app/userdata --name megamek tapenvyus/megamek:milestone
+docker run -d --restart unless-stopped -p 2346:2346 -v <path to userdata folder>:/app/userdata --name megamek tapenvyus/megamek:{{ page.version }}
 ```
 
 So if you're in your users home folder and created a `customs` directory to store maps, meks, etc. in, the above command would be:
 
 ```bash
-docker run -d --restart unless-stopped -p 2346:2346 -v ~/customs:/app/userdata --name megamek tapenvyus/megamek:milestone
+docker run -d --restart unless-stopped -p 2346:2346 -v ~/customs:/app/userdata --name megamek tapenvyus/megamek:{{ page.version }}
 ```
 
 Congratulations! You have your own server setup now using the stock MegaMek

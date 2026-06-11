@@ -1,13 +1,18 @@
 ---
 layout: page
+version: milestone
+previous: previous
 ---
+{% assign version = site.data.versions[page.version] %}
+{% assign previous = site.data.versions[page.previous] %}
+
 # Updating
 
 Updating the version on your server is considerably easier than the initial
 installation. Few steps, less things to break. In fact, the process should
 feel similar to how it was for the initial installation.
 
-## System Updates and Java
+## System Updates{% if version.jdk != previous.jdk %} and Java{% endif %}
 
 Before we update MegaMek, lets make sure our server has the latest patches
 installed.
@@ -19,22 +24,22 @@ to chain 3 commands together.
 # step 1
 sudo apt update && sudo apt full-upgrade -y
 ```
-
+{% if version.jdk != previous.jdk %}
 ### Upgrading Java
 
-If you aren't already using OpenJDK 17 on your server, you'll need to run the
+If you aren't already using OpenJDK {{ version.jdk }} on your server, you'll need to run the
 following set of commands to get the correct version installed.
 
 ```bash
-sudo apt uninstall openjdk-11-jdk-headless
-sudo apt install openjdk-17-jdk-headless
+sudo apt uninstall openjdk-{{ previous.jdk }}-jdk-headless
+sudo apt install openjdk-{{ version.jdk }}-jdk-headless
 ```
-
+{% endif %}
 ## Getting MegaMek
 
 Same as with the installation, we need to get a copy of the latest version onto
 the server. So navigate to [MegaMek](https://megamek.org/downloads.html)
-and copy the URL for the Linux version (you're choice on either the MegaMek
+and copy the URL for the Linux version (your choice on either the MegaMek
 or MekHQ package).
 
 ```bash
@@ -54,11 +59,11 @@ ls -lha
 >
 > This will return a listing of files and folders in the current directory.
 
-For MekHQ 0.50.06:
+For MekHQ {{ version.version }}:
 
 ```bash
 # step 3
-tar -zxf mekhq-0.50.06.tar.gz
+tar -zxf mekhq-{{ version.version }}.tar.gz
 ```
 
 To better understand what's going on, we are telling the `tar` command to
@@ -87,7 +92,7 @@ installation) then link the new version up with
 ```bash
 # step 5
 rm stable
-ln -s mekhq-0.50.06 stable
+ln -s mekhq-{{ version.version }} stable
 ```
 
 ## Start the new version
@@ -127,7 +132,7 @@ with whatever is the previous version(s).
 
 ```bash
 ls -lha
-rm -rf mekhq-0.49.15*
+rm -rf mekhq-{{ previous.version }}*
 ```
 
 ## Restart for any system updates

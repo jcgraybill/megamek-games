@@ -1,0 +1,11 @@
+previous:
+  version: 0.50.06
+  jdk: 17
+
+milestone:
+  version: 0.50.11
+  jdk: 17
+
+development:
+  version: 0.51.0
+  jdk: 21
